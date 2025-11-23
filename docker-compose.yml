@@ -1,0 +1,22 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.routes
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: streamlit_app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi
